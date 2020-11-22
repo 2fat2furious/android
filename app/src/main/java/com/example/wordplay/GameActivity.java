@@ -17,9 +17,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Random;
 
-public class GameActivity extends Activity {
+public class GameActivity extends AppCompatActivity {
 
     //body part images
     private ImageView[] bodyParts;
@@ -46,7 +48,7 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Resources res = getResources();
         words = res.getStringArray(R.array.words);
