@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Виселица</string>
+    <string name="gallows">Виселица</string>
+    <string name="head">Голова</string>
+    <string name="body">Тело</string>
+    <string name="arm">Рука</string>
+    <string name="leg">Нога</string>
+    <string name="help">Помощь</string>
+    <string name="helpMess">Угадай слово, выбирая буквы. \n\nУ тебя всего 6 неправильных вариантов, и игра окончена!</string>
+    <string name="congrat">Поздравляем</string>
+    <string name="win">Вы победили!\n\nОтвет:\n\n</string>
+    <string name="playAgain">Сыграем ещё?</string>
+    <string name="exit">Выход</string>
+    <string name="alas">Увы</string>
+    <string name="lose">Вы проиграли!\n\nБыло загадано:\n\n</string>
+    <string name="play">Играть</string>
+</resources>

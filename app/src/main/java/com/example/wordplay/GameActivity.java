@@ -1,6 +1,5 @@
 package com.example.wordplay;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Locale;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
@@ -34,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
     //number correctly guessed
     private int numCorr;
 
+    private String currentLocale;
     private String[] words;
     private Random rand;
     private String currWord;
@@ -51,26 +52,41 @@ public class GameActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Resources res = getResources();
-        words = res.getStringArray(R.array.words);
+        currentLocale = res.getConfiguration().locale.getDisplayLanguage();
+        if(currentLocale.toLowerCase().contains("русский")) {
+            words = res.getStringArray(R.array.words_ru);
+        }
+        else{
+            words = res.getStringArray(R.array.words_en);
+        }
 
         rand = new Random();
         currWord = "";
-        wordLayout = (LinearLayout)findViewById(R.id.word);
+        wordLayout = findViewById(R.id.word);
 
-        letters = (GridView) findViewById(R.id.letters);
+        letters = findViewById(R.id.letters);
 
         bodyParts = new ImageView[numParts];
-        bodyParts[0] = (ImageView) findViewById(R.id.head);
-        bodyParts[1] = (ImageView) findViewById(R.id.body);
-        bodyParts[2] = (ImageView) findViewById(R.id.arm1);
-        bodyParts[3] = (ImageView) findViewById(R.id.arm2);
-        bodyParts[4] = (ImageView) findViewById(R.id.leg1);
-        bodyParts[5] = (ImageView) findViewById(R.id.leg2);
+        bodyParts[0] = findViewById(R.id.head);
+        bodyParts[1] = findViewById(R.id.body);
+        bodyParts[2] = findViewById(R.id.arm1);
+        bodyParts[3] = findViewById(R.id.arm2);
+        bodyParts[4] = findViewById(R.id.leg1);
+        bodyParts[5] = findViewById(R.id.leg2);
 
         playGame();
     }
 
     private void playGame() {
+        if(currentLocale != getResources().getConfiguration().locale.getDisplayLanguage()){
+            currentLocale = getResources().getConfiguration().locale.getDisplayLanguage();
+            if(currentLocale.toLowerCase().contains("русский")) {
+                words = getResources().getStringArray(R.array.words_ru);
+            }
+            else{
+                words = getResources().getStringArray(R.array.words_en);
+            }
+        }
         //play a new game
         // Выбираем случайным образом новое слово
         String newWord = words[rand.nextInt(words.length)];
@@ -152,22 +168,14 @@ public class GameActivity extends AppCompatActivity {
 
                 // выводим диалоговое окно
                 AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
-                winBuild.setTitle("Поздравляем");
-                winBuild.setMessage("Вы победили!\n\nОтвет:\n\n" + currWord);
-                winBuild.setPositiveButton("Сыграем ещё?",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                GameActivity.this.playGame();
-                            }
-                        }
+                winBuild.setTitle(getString(R.string.congrat));
+                winBuild.setMessage(getString(R.string.win) + currWord);
+                winBuild.setPositiveButton(getString(R.string.playAgain),
+                        (dialog, id) -> GameActivity.this.playGame()
                 );
 
-                winBuild.setNegativeButton("Выход",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                GameActivity.this.finish();
-                            }
-                        }
+                winBuild.setNegativeButton(getString(R.string.exit),
+                        (dialog, id) -> GameActivity.this.finish()
                 );
 
                 winBuild.show();
@@ -182,19 +190,13 @@ public class GameActivity extends AppCompatActivity {
 
             // Display Alert Dialog
             AlertDialog.Builder loseBuild = new AlertDialog.Builder(this);
-            loseBuild.setTitle("Увы");
-            loseBuild.setMessage("Вы проиграли!\n\nБыло загадано:\n\n"+currWord);
-            loseBuild.setPositiveButton("Сыграем ещё?",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            GameActivity.this.playGame();
-                        }});
+            loseBuild.setTitle(getString(R.string.alas));
+            loseBuild.setMessage(getString(R.string.lose) + currWord);
+            loseBuild.setPositiveButton(getString(R.string.playAgain),
+                    (dialog, id) -> GameActivity.this.playGame());
 
-            loseBuild.setNegativeButton("Выход",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            GameActivity.this.finish();
-                        }});
+            loseBuild.setNegativeButton(getString(R.string.exit),
+                    (dialog, id) -> GameActivity.this.finish());
 
             loseBuild.show();
         }
@@ -210,14 +212,10 @@ public class GameActivity extends AppCompatActivity {
     public void showHelp() {
         AlertDialog.Builder helpBuild = new AlertDialog.Builder(this);
 
-        helpBuild.setTitle("Help");
-        helpBuild.setMessage("Guess the word by selecting the letters.\n\n"
-                + "You only have 6 wrong selections then it's game over!");
+        helpBuild.setTitle(getString(R.string.help));
+        helpBuild.setMessage(getString(R.string.helpMess));
         helpBuild.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        helpAlert.dismiss();
-                    }});
+                (dialog, id) -> helpAlert.dismiss());
         helpAlert = helpBuild.create();
 
         helpBuild.show();

@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

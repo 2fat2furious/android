@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="words">
+    <string-array name="words_en">
         <item>KITTEN</item>
         <item>COMPUTER</item>
         <item>TABLET</item>
@@ -11,5 +11,17 @@
         <item>ANDROID</item>
         <item>KEYBOARD</item>
         <item>SMARTPHONE</item>
+    </string-array>
+    <string-array name="words_ru">
+        <item>КОТЕНОК</item>
+        <item>КОМПЬЮТЕР</item>
+        <item>ТАБЛЕТКА</item>
+        <item>СИСТЕМА</item>
+        <item>ПРИЛОЖЕНИЕ</item>
+        <item>ИНТЕРНЕТ</item>
+        <item>СТИЛЬ</item>
+        <item>АНДРОИД</item>
+        <item>КЛАВИАТУРА</item>
+        <item>СМАРТФОН</item>
     </string-array>
 </resources>

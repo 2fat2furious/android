@@ -5,4 +5,13 @@
     <string name="body">The Body</string>
     <string name="arm">An Arm</string>
     <string name="leg">A Leg</string>
+    <string name="help">Help</string>
+    <string name="helpMess">Guess the word by selecting the letters.\n\nYou only have 6 wrong selections then it\'s game over!</string>
+    <string name="congrat">Congratulations</string>
+    <string name="win">You won!\n\nAnswer:\n\n</string>
+    <string name="playAgain">Let\'s play again?</string>
+    <string name="exit">Exit</string>
+    <string name="alas">Alas</string>
+    <string name="lose">You lose!\n\nIt was envisioned:\n\n</string>
+    <string name="play">Play</string>
 </resources>

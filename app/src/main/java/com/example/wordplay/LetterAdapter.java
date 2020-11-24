@@ -1,11 +1,14 @@
 package com.example.wordplay;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+
+import java.util.Locale;
 
 public class LetterAdapter extends BaseAdapter {
 
@@ -13,9 +16,19 @@ public class LetterAdapter extends BaseAdapter {
     private LayoutInflater letterInf;
 
     public LetterAdapter(Context c) {
-        letters=new String[26];
-        for (int a = 0; a < letters.length; a++) {
-            letters[a] = "" + (char)(a+'A');
+        Resources res = c.getResources();
+        String current = res.getConfiguration().locale.getDisplayLanguage();
+        if(current.toLowerCase().contains("русский")) {
+            letters = new String[32];
+            for (int a = 0; a < letters.length; a++) {
+                letters[a] = "" + (char) (a + 'А');
+            }
+        }
+        else{
+            letters = new String[26];
+            for (int a = 0; a < letters.length; a++) {
+                letters[a] = "" + (char) (a + 'A');
+            }
         }
 
         letterInf = LayoutInflater.from(c);
