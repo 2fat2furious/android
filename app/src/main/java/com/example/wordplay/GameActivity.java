@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.wordplay.database.WordLab;
+
 import java.util.Locale;
 import java.util.Random;
 
@@ -26,7 +28,7 @@ public class GameActivity extends AppCompatActivity {
     //body part images
     private ImageView[] bodyParts;
     //number of body parts
-    private int numParts=6;
+    private final int numParts=6;
     //current part - will increment when wrong answers are chosen
     private int currPart;
     //number of characters in current word
@@ -34,15 +36,13 @@ public class GameActivity extends AppCompatActivity {
     //number correctly guessed
     private int numCorr;
 
-    private String currentLocale;
-    private String[] words;
-    private Random rand;
     private String currWord;
     private LinearLayout wordLayout;
     private TextView[] charViews;
     private GridView letters;
     private LetterAdapter ltrAdapt;
     private AlertDialog helpAlert;
+    private WordLab wordLab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +51,9 @@ public class GameActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Resources res = getResources();
-        currentLocale = res.getConfiguration().locale.getDisplayLanguage();
-        if(currentLocale.toLowerCase().contains("русский")) {
-            words = res.getStringArray(R.array.words_ru);
-        }
-        else{
-            words = res.getStringArray(R.array.words_en);
-        }
-
-        rand = new Random();
         currWord = "";
         wordLayout = findViewById(R.id.word);
+        wordLab = new WordLab(this);
 
         letters = findViewById(R.id.letters);
 
@@ -78,20 +69,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void playGame() {
-        if(currentLocale != getResources().getConfiguration().locale.getDisplayLanguage()){
-            currentLocale = getResources().getConfiguration().locale.getDisplayLanguage();
-            if(currentLocale.toLowerCase().contains("русский")) {
-                words = getResources().getStringArray(R.array.words_ru);
-            }
-            else{
-                words = getResources().getStringArray(R.array.words_en);
-            }
-        }
         //play a new game
         // Выбираем случайным образом новое слово
-        String newWord = words[rand.nextInt(words.length)];
+        String newWord = wordLab.getRandomWord();
         // Если слово совпадает с текущим, то повторяем еще раз, пока не выберем новое слово
-        while (newWord.equals(currWord)) newWord = words[rand.nextInt(words.length)];
+        while (newWord.equals(currWord)) newWord = wordLab.getRandomWord();
         currWord = newWord; // выбрали
         // программно создадим столько TextView, сколько символов в слове
         charViews = new TextView[currWord.length()];
@@ -109,16 +91,16 @@ public class GameActivity extends AppCompatActivity {
             charViews[c].setBackgroundResource(R.drawable.letter_bg);
             // добавляем в разметку
             wordLayout.addView(charViews[c]);
+        }
 
-            ltrAdapt = new LetterAdapter(this);
-            letters.setAdapter(ltrAdapt);
-            currPart = 0;
-            numChars = currWord.length();
-            numCorr = 0;
+        ltrAdapt = new LetterAdapter(this);
+        letters.setAdapter(ltrAdapt);
+        currPart = 0;
+        numChars = currWord.length();
+        numCorr = 0;
 
-            for (int p = 0; p < numParts; p++) {
-                bodyParts[p].setVisibility(View.INVISIBLE);
-            }
+        for (int p = 0; p < numParts; p++) {
+            bodyParts[p].setVisibility(View.INVISIBLE);
         }
     }
 

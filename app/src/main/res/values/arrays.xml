@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="words_en">
-        <item>KITTEN</item>
+        <item>PROGRAMMER</item>
         <item>COMPUTER</item>
         <item>TABLET</item>
         <item>SYSTEM</item>
@@ -13,7 +13,7 @@
         <item>SMARTPHONE</item>
     </string-array>
     <string-array name="words_ru">
-        <item>КОТЕНОК</item>
+        <item>ПРОГРАММИСТ</item>
         <item>КОМПЬЮТЕР</item>
         <item>ТАБЛЕТКА</item>
         <item>СИСТЕМА</item>
