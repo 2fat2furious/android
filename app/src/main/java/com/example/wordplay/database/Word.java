@@ -1,7 +1,5 @@
 package com.example.wordplay.database;
 
-import java.util.UUID;
-
 public class Word {
     private String language;
     private String word;

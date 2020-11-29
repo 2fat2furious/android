@@ -15,4 +15,5 @@
     <string name="alas">Увы</string>
     <string name="lose">Вы проиграли!\n\nБыло загадано:\n\n</string>
     <string name="play">Играть</string>
+    <string name="map">Карта</string>
 </resources>

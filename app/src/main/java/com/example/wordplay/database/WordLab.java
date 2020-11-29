@@ -2,11 +2,8 @@ package com.example.wordplay.database;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.example.wordplay.R;
 
 public class WordLab {
 

@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 
-import java.util.Locale;
-
 public class LetterAdapter extends BaseAdapter {
 
     private String[] letters;

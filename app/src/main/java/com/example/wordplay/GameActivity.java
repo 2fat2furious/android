@@ -1,8 +1,6 @@
 package com.example.wordplay;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -17,11 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 
 import com.example.wordplay.database.WordLab;
-
-import java.util.Locale;
-import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -116,7 +112,7 @@ public class GameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                //NavUtils.navigateUpFromSameTask(this);
+                NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.action_help:
                 showHelp();
