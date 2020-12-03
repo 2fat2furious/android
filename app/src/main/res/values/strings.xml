@@ -24,5 +24,6 @@
     <string name="qAut">Already Registered? Login Now !</string>
     <string name="register">Register</string>
     <string name="level">Level</string>
+    <string name="user">User</string>
 
 </resources>

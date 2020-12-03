@@ -25,12 +25,7 @@ public interface RetrofitInterface {
     @GET("/users/{login}")
     Observable<User> getProfile(@Path("login") String login);
 
-    @PUT("users/{login}")
+    @PUT("users/change/{login}")
     Observable<Response> changePassword(@Path("login") String login, @Body User user);
 
-    @POST("/api/v1/users/")
-    Observable<Response> resetPasswordInit();
-
-    @POST("/api/v1/users/login/")
-    Observable<Response> resetPasswordFinish();
 }

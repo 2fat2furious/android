@@ -1,0 +1,32 @@
+{
+  "name": "android_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel server.js --out-dir build",
+    "start": "node server.js",
+    "dev-start": "babel-watch server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.12.9",
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "make-runnable": "^1.3.8",
+    "moment": "^2.29.1",
+    "pg": "^8.5.1",
+    "uuid": "^8.3.1",
+    "uuidv4": "^6.2.5"
+  },
+  "devDependencies": {
+    "@babel/helper-compilation-targets": "^7.12.5",
+    "@babel/preset-env": "^7.12.7",
+    "babel-cli": "^6.26.0",
+    "babel-watch": "^7.0.0"
+  }
+}

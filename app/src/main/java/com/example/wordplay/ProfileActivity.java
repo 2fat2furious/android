@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.wordplay.fragments.ChangePasswordDialog;
 import com.example.wordplay.models.Response;
 import com.example.wordplay.models.User;
 import com.example.wordplay.network.NetworkUtil;
@@ -27,13 +28,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener, ChangePasswordDialog.Listener{
 
     public static final String TAG = ProfileActivity.class.getSimpleName();
 
     private TextView mTvName;
-    private TextView mTvLevel;
-    private TextView mTvDate;
+//    private TextView mTvLevel;
     private Button mBtChangePassword;
     private Button mBtLogout;
 
@@ -41,7 +41,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private SharedPreferences mSharedPreferences;
     private String mToken;
-    private String mLevel;
+    private String mLogin;
+    private User userAut;
 
     private CompositeSubscription mSubscriptions;
 
@@ -63,11 +64,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void initViews() {
 
         mTvName = (TextView) findViewById(R.id.tv_name);
-        mTvLevel = (TextView) findViewById(R.id.tv_level);
-        mTvDate = (TextView) findViewById(R.id.tv_date);
+//        mTvLevel = (TextView) findViewById(R.id.tv_level);
         mBtChangePassword = (Button) findViewById(R.id.btn_change_password);
         mBtLogout = (Button) findViewById(R.id.btn_logout);
         mProgressbar = (ProgressBar) findViewById(R.id.progress);
+        mBtChangePassword.setOnClickListener(view -> showDialog());
 
 
         mBtLogout.setOnClickListener(view -> logout());
@@ -77,13 +78,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mToken = mSharedPreferences.getString(Constants.TOKEN, "");
-        mLevel = mSharedPreferences.getString(Constants.LEVEL, "");
+        mLogin = mSharedPreferences.getString(Constants.LOGIN, "");
     }
 
     private void logout() {
 
         SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putString(Constants.LEVEL, "");
+        editor.putString(Constants.LOGIN, "");
         editor.putString(Constants.TOKEN, "");
         editor.apply();
         finish();
@@ -91,17 +92,30 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private void loadProfile() {
 
-        mSubscriptions.add(NetworkUtil.getRetrofit(mToken).getProfile(mLevel)
+        mSubscriptions.add(NetworkUtil.getRetrofit(mToken).getProfile(mLogin)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError));
     }
 
+    private void showDialog(){
+
+        ChangePasswordDialog fragment = new ChangePasswordDialog();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.LOGIN, mLogin);
+        bundle.putString(Constants.TOKEN,mToken);
+        fragment.setArguments(bundle);
+
+        fragment.show(getFragmentManager(), ChangePasswordDialog.TAG);
+    }
+
     private void handleResponse(User user) {
 
         mProgressbar.setVisibility(View.GONE);
-        mTvName.setText(getResources().getString(R.string.login) + ": " + user.getLogin() );
-        mTvLevel.setText(getResources().getString(R.string.level) + ": " +user.getLevel() );
+        mTvName.setText(getResources().getString(R.string.user) + ": " + user.getLogin() );
+        userAut = user;
+//        mTvLevel.setText(getResources().getString(R.string.level) + ": " +user.getLevel() );
     }
 
     private void handleError(Throwable error) {
@@ -137,6 +151,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         mSubscriptions.unsubscribe();
+    }
+
+    @Override
+    public void onPasswordChanged() {
+
+        showSnackBarMessage("Password Changed Successfully !");
     }
 
     @Override

@@ -25,4 +25,5 @@
     <string name="qAut">Уже зарегистрированы? Авторизуйтесь!</string>
     <string name="register">Зарегистроваться</string>
     <string name="level">Уровень</string>
+    <string name="user">Пользователь</string>
 </resources>
