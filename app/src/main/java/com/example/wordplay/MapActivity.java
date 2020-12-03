@@ -38,9 +38,9 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+        checkPermissionsState();
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        checkPermissionsState();
     }
 
     private void checkPermissionsState() {

@@ -1,34 +1,48 @@
 package com.example.wordplay;
 
 import android.content.Intent;
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import android.os.Bundle;
+import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+import com.example.wordplay.fragments.LoginFragment;
+
+
+public class MainActivity extends AppCompatActivity {
+
+    public static final String TAG = MainActivity.class.getSimpleName();
+
+    private LoginFragment mLoginFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button playBtn = findViewById(R.id.playBtn);
-        playBtn.setOnClickListener(this);
+        if (savedInstanceState == null) {
 
-        Button mapBtn = findViewById(R.id.mapBtn);
-        mapBtn.setOnClickListener(this);
+            loadFragment();
+        }
+    }
+
+    private void loadFragment(){
+
+        if (mLoginFragment == null) {
+
+            mLoginFragment = new LoginFragment();
+        }
+        getFragmentManager().beginTransaction().replace(R.id.fragmentFrame,mLoginFragment,LoginFragment.TAG).commit();
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.playBtn) {
-            Intent playIntent = new Intent(this, GameActivity.class);
-            this.startActivity(playIntent);
-        }
-        if (v.getId() == R.id.mapBtn) {
-            Intent playIntent = new Intent(this, MapActivity.class);
-            this.startActivity(playIntent);
-        }
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        String data = intent.getData().getLastPathSegment();
+        Log.d(TAG, "onNewIntent: "+data);
+
     }
+
 }

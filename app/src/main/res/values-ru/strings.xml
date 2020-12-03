@@ -16,4 +16,13 @@
     <string name="lose">Вы проиграли!\n\nБыло загадано:\n\n</string>
     <string name="play">Играть</string>
     <string name="map">Карта</string>
+    <string name="login">Логин</string>
+    <string name="Aut">Войти</string>
+    <string name="password">Пароль</string>
+    <string name="logout">Выйти</string>
+    <string name="chgPass">Изменить пароль</string>
+    <string name="qLogin">Не зарегистрированы? Зарегистрируйтесь!</string>
+    <string name="qAut">Уже зарегистрированы? Авторизуйтесь!</string>
+    <string name="register">Зарегистроваться</string>
+    <string name="level">Уровень</string>
 </resources>
