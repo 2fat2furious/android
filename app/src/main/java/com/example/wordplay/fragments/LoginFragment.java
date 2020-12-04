@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,11 +56,10 @@ public class LoginFragment extends Fragment {
     private SharedPreferences mSharedPreferences;
 
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login,container,false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
         mSubscriptions = new CompositeSubscription();
         initViews(view);
         initSharedPreferences();
@@ -96,23 +97,22 @@ public class LoginFragment extends Fragment {
         if (!validateLogin(login)) {
 
             err++;
-            mTiLogin.setError("Login should be valid!");
+            mTiLogin.setError(getResources().getString(R.string.validateLog));
         }
 
         if (!validateFields(password)) {
 
             err++;
-            mTiPassword.setError("Password should not be empty!");
+            mTiPassword.setError(getResources().getString(R.string.validatePass));
         }
 
         if (err == 0) {
 
-            loginProcess(login,password);
+            loginProcess(login, password);
             mProgressBar.setVisibility(View.VISIBLE);
 
         } else {
-
-            showSnackBarMessage("Enter Valid Details!");
+            showSnackBarMessage(getResources().getString(R.string.validate));
         }
     }
 
@@ -124,10 +124,10 @@ public class LoginFragment extends Fragment {
 
     private void loginProcess(String email, String password) {
 
-        mSubscriptions.add(NetworkUtil.getRetrofit(email, password).login(new User(email,password))
+        mSubscriptions.add(NetworkUtil.getRetrofit(email, password).login(new User(email, password))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(this::handleResponse,this::handleError));
+                .subscribe(this::handleResponse, this::handleError));
     }
 
     private void handleResponse(Response response) {
@@ -135,8 +135,8 @@ public class LoginFragment extends Fragment {
         mProgressBar.setVisibility(View.GONE);
 
         SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putString(Constants.TOKEN,response.getToken());
-        editor.putString(Constants.LOGIN,response.getMessage());
+        editor.putString(Constants.TOKEN, response.getToken());
+        editor.putString(Constants.LOGIN, response.getMessage());
         editor.apply();
 
         mEtLogin.setText(null);
@@ -156,17 +156,22 @@ public class LoginFragment extends Fragment {
             Gson gson = new GsonBuilder().create();
 
             try {
-
                 String errorBody = ((HttpException) error).response().errorBody().string();
-                Response response = gson.fromJson(errorBody,Response.class);
-                showSnackBarMessage(response.getMessage());
-
+                Response response = gson.fromJson(errorBody, Response.class);
+                try {
+                    String mess = getResources().getString(R.string.class.getField(response.getMessage()).getInt(null));
+                    showSnackBarMessage(mess);
+                } catch (IllegalAccessException e) {
+                    showSnackBarMessage(response.getMessage());
+                } catch (NoSuchFieldException e) {
+                    showSnackBarMessage(response.getMessage());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
 
-            showSnackBarMessage("Network Error!");
+            showSnackBarMessage(getResources().getString(R.string.networkError));
         }
     }
 
@@ -174,15 +179,15 @@ public class LoginFragment extends Fragment {
 
         if (getView() != null) {
 
-            Snackbar.make(getView(),message, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
         }
     }
 
-    private void goToRegister(){
+    private void goToRegister() {
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         RegisterFragment fragment = new RegisterFragment();
-        ft.replace(R.id.fragmentFrame,fragment,RegisterFragment.TAG);
+        ft.replace(R.id.fragmentFrame, fragment, RegisterFragment.TAG);
         ft.commit();
     }
 

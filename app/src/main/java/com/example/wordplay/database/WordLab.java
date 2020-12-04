@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WordLab {
 
     private SQLiteDatabase database;
@@ -58,5 +61,34 @@ public class WordLab {
         finally {
             cursor.close();
         }
+    }
+
+    public void deleteAll() {
+
+        database.delete(WordDbSchema.WordTable.NAME, null, null);
+    }
+
+    public List<Word> getAllWords() {
+        List<Word> words = new ArrayList<Word>();
+
+        Cursor cursor = database.query(WordDbSchema.WordTable.NAME,
+                new String[]{WordDbSchema.WordTable.Cols.WORD, WordDbSchema.WordTable.Cols.LANGUAGE}, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Word word = cursorToWord(cursor);
+            words.add(word);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return words;
+    }
+
+    private Word cursorToWord(Cursor cursor) {
+        Word word = new Word();
+        word.setWord(cursor.getString(0));
+        word.setLanguage(cursor.getString(1));
+        return word;
     }
 }
