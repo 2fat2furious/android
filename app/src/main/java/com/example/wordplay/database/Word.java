@@ -9,6 +9,8 @@ public class Word {
         this.language = language;
     }
 
+    public Word (){}
+
     public String getLanguage() {
         return language;
     }
