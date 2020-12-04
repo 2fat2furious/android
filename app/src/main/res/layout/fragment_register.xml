@@ -18,17 +18,16 @@
 
             <ImageView
                 android:id="@+id/img_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/logo_height"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/logo"/>
+                android:layout_width="378dp"
+                android:layout_height="137dp"
+                android:src="@drawable/logo" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ti_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/img_logo"
-                android:layout_marginTop="-4dp" />
+                android:layout_marginTop="1dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ti_login"
