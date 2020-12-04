@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:id="@+id/activity_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/playBtn2"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:drawableRight="@android:drawable/ic_dialog_map"
             android:paddingLeft="@dimen/button_padding"
             android:text="@string/map" />
@@ -30,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/card"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="7dp"
             android:drawableRight="@android:drawable/ic_media_play"
             android:paddingLeft="@dimen/button_padding"
             android:text="@string/play" />
@@ -78,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mapBtn"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:drawableRight="@drawable/ic_lock"
             android:paddingLeft="@dimen/button_padding"
             android:text="@string/chgPass" />
@@ -88,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_change_password"
-            android:layout_marginTop="@dimen/button_margin"
+            android:layout_marginTop="4dp"
             android:drawableRight="@drawable/ic_exit"
             android:paddingLeft="@dimen/button_padding"
             android:text="@string/logout" />

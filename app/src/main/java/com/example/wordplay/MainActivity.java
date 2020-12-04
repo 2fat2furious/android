@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        startService(new Intent(this, MyService.class));
         if (savedInstanceState == null) {
-
             loadFragment();
         }
     }
@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
         String data = intent.getData().getLastPathSegment();
         Log.d(TAG, "onNewIntent: "+data);
 
+    }
+
+    public void onBackPressed() {
+        stopService(new Intent(this, MyService.class));
     }
 
 }
