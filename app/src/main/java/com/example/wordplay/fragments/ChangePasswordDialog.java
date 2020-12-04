@@ -109,13 +109,13 @@ public class ChangePasswordDialog extends DialogFragment {
         if (!validateFields(oldPassword)) {
 
             err++;
-            mTiOldPassword.setError("Password should not be empty!");
+            mTiOldPassword.setError(getResources().getString(R.string.validatePass));
         }
 
         if (!validateFields(newPassword)) {
 
             err++;
-            mTiNewPassword.setError("Password should not be empty!");
+            mTiNewPassword.setError(getResources().getString(R.string.validatePass));
         }
 
         if (err == 0) {
@@ -168,14 +168,22 @@ public class ChangePasswordDialog extends DialogFragment {
             }
         } else {
 
-            showMessage("Network Error!");
+            showMessage(getResources().getString(R.string.networkError));
         }
     }
 
     private void showMessage(String message) {
 
         mTvMessage.setVisibility(View.VISIBLE);
-        mTvMessage.setText(message);
+        try {
+            String mess = getResources().getString(R.string.class.getField(message).getInt(null));
+            mTvMessage.setText(mess);
+        } catch (IllegalAccessException e) {
+            mTvMessage.setText(message);
+        } catch (NoSuchFieldException e) {
+            mTvMessage.setText(message);
+        }
+
 
     }
 

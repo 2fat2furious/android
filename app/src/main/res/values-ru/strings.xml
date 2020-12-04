@@ -26,4 +26,20 @@
     <string name="register">Зарегистроваться</string>
     <string name="level">Уровень</string>
     <string name="user">Пользователь</string>
+    <string name="validateLog">Некорректный логин!</string>
+    <string name="validatePass">Поле с паролем не должно быть пустым!</string>
+    <string name="validate">Введите корректные данные!</string>
+    <string name="networkError">Ошибка сети!</string>
+    <string name="changePassMessage">Пароль успешно изменен!</string>
+    <string name="oldPass">Старый пароль</string>
+    <string name="newPass">Новый пароль</string>
+    <string name="cancel">Отмена</string>
+    <string name="messageSomeValuesMissing">Некоторые значения отсутствуют</string>
+    <string name="messageValidLogin">Пожалуйста, введите корректный логин</string>
+    <string name="messageUserCreated">Пользователь успешно создан</string>
+    <string name="messageUserAlreadyExist">Пользователь с данным логином уже существует</string>
+    <string name="messageUserNotFound">Пользователь не найден</string>
+    <string name="messageCredentialsIncorrect">Введенные вами данные не верны</string>
+    <string name="messageUserСhanged">Пароль успешно изменен!</string>
+    <string name="messageUserDeleted">Пользователь удален!</string>
 </resources>

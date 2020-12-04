@@ -83,28 +83,23 @@ public class RegisterFragment extends Fragment {
 
 
         if (!validateLogin(login)) {
-
             err++;
-            mTiLogin.setError("Login should be valid !");
+            mTiLogin.setError(getResources().getString(R.string.validateLog));
         }
 
         if (!validateFields(password)) {
-
             err++;
-            mTiPassword.setError("Password should not be empty !");
+            mTiPassword.setError(getResources().getString(R.string.validatePass));
         }
 
         if (err == 0) {
 
             User user = new User(login,password);
-
-
             mProgressbar.setVisibility(View.VISIBLE);
             registerProcess(user);
 
         } else {
-
-            showSnackBarMessage("Enter Valid Details !");
+            showSnackBarMessage(getResources().getString(R.string.validate));
         }
     }
 
@@ -124,7 +119,14 @@ public class RegisterFragment extends Fragment {
     private void handleResponse(Response response) {
 
         mProgressbar.setVisibility(View.GONE);
-        showSnackBarMessage(response.getMessage());
+        try {
+            String mess = getResources().getString(R.string.class.getField(response.getMessage()).getInt(null));
+            showSnackBarMessage(mess);
+        } catch (IllegalAccessException e) {
+            showSnackBarMessage(response.getMessage());
+        } catch (NoSuchFieldException e) {
+            showSnackBarMessage(response.getMessage());
+        }
     }
 
     private void handleError(Throwable error) {
@@ -139,14 +141,21 @@ public class RegisterFragment extends Fragment {
 
                 String errorBody = ((HttpException) error).response().errorBody().string();
                 Response response = gson.fromJson(errorBody,Response.class);
-                showSnackBarMessage(response.getMessage());
-
+                try {
+                    String mess = getResources().getString(R.string.class.getField(response.getMessage()).getInt(null));
+                    showSnackBarMessage(mess);
+                } catch (IllegalAccessException e) {
+                    showSnackBarMessage(response.getMessage());
+                } catch (NoSuchFieldException e) {
+                    showSnackBarMessage(response.getMessage());
+                }
+                showSnackBarMessage(getResources().getString(R.string.networkError));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
 
-            showSnackBarMessage("Network Error !");
+            showSnackBarMessage(getResources().getString(R.string.networkError));
         }
     }
 

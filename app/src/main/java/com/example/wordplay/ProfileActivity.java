@@ -130,14 +130,20 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
                 String errorBody = ((HttpException) error).response().errorBody().string();
                 Response response = gson.fromJson(errorBody, Response.class);
-                showSnackBarMessage(response.getMessage());
-
+                try {
+                    String mess = getResources().getString(R.string.class.getField(response.getMessage()).getInt(null));
+                    showSnackBarMessage(mess);
+                } catch (IllegalAccessException e) {
+                    showSnackBarMessage(response.getMessage());
+                } catch (NoSuchFieldException e) {
+                    showSnackBarMessage(response.getMessage());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
 
-            showSnackBarMessage("Network Error !");
+            showSnackBarMessage(getResources().getString(R.string.networkError));
         }
     }
 
@@ -156,7 +162,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onPasswordChanged() {
 
-        showSnackBarMessage("Password Changed Successfully !");
+        showSnackBarMessage(getResources().getString(R.string.changePassMessage));
     }
 
     @Override

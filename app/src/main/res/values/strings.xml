@@ -25,5 +25,21 @@
     <string name="register">Register</string>
     <string name="level">Level</string>
     <string name="user">User</string>
+    <string name="validateLog">Login should be valid!</string>
+    <string name="validatePass">Password should not be empty!</string>
+    <string name="validate">Enter valid details!</string>
+    <string name="networkError">Network Error!</string>
+    <string name="changePassMessage">Password Changed Successfully!</string>
+    <string name="oldPass">Old password</string>
+    <string name="newPass">New password</string>
+    <string name="cancel">Cancel</string>
+    <string name="messageSomeValuesMissing">Some values are missing</string>
+    <string name="messageValidLogin">Please enter a valid login</string>
+    <string name="messageUserCreated">User created successfully</string>
+    <string name="messageUserAlreadyExist">User with that login already exist</string>
+    <string name="messageUserNotFound">User not found</string>
+    <string name="messageCredentialsIncorrect">The credentials you provided is incorrect</string>
+    <string name="messageUserСhanged">Password changed successfully!</string>
+    <string name="messageUserDeleted">User deleted successfully</string>
 
 </resources>
