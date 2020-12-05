@@ -13,7 +13,12 @@ app.get('/', (req, res) => {
   return res.status(200).send({'message': 'YAY! Congratulations! Your first endpoint is working'});
 });
 
+var swaggerUi = require('swagger-ui-express'),
+    swaggerDocument = require('./swagger.json');
 
+
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.post('/users', UserWithDb.create);
 app.post('/users/login',UserWithDb.login);
 app.put('/users/change/:login',Auth.verifyToken,UserWithDb.chagePass);
