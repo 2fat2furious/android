@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="292dp"
         android:background="#FFFFFFFF"
         android:gravity="center"
@@ -80,7 +80,7 @@
 
     <LinearLayout
         android:id="@+id/word"
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_marginBottom="5dp"
         android:background="#FFFFFFFF"
@@ -89,16 +89,15 @@
         android:padding="10dp" />
 
     <GridView
-            android:id="@+id/letters"
-            android:layout_width="340dp"
-            android:layout_height="1021dp"
-            android:layout_marginBottom="5dp"
-            android:background="#FF000000"
-            android:horizontalSpacing="5dp"
-            android:numColumns="7"
-            android:padding="5dp"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="5dp"
-          />
+        android:id="@+id/letters"
+        android:layout_width="match_parent"
+        android:layout_height="1021dp"
+        android:layout_marginBottom="5dp"
+        android:background="#FF000000"
+        android:horizontalSpacing="5dp"
+        android:numColumns="7"
+        android:padding="5dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dp" />
 
 </LinearLayout>

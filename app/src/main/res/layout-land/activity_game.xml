@@ -7,8 +7,8 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="370dp"
-        android:layout_height="230dp"
+        android:layout_width="match_parent"
+        android:layout_height="229dp"
         android:background="#FFFFFFFF"
         android:gravity="center">
 
@@ -75,25 +75,24 @@
     </RelativeLayout>
 
 
+    <LinearLayout
+        android:id="@+id/word"
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:background="#FFFFFFFF"
+        android:gravity="center" />
 
-        <LinearLayout
-            android:id="@+id/word"
-            android:layout_width="370dp"
-            android:layout_height="50dp"
-            android:background="#FFFFFFFF"
-            android:orientation="vertical" />
-
-        <GridView
-            android:id="@+id/letters"
-            android:layout_width="740dp"
-            android:layout_height="1021dp"
-            android:layout_marginBottom="5dp"
-            android:background="#FFFFFFFF"
-            android:horizontalSpacing="5dp"
-            android:numColumns="16"
-            android:padding="5dp"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="5dp" />
+    <GridView
+        android:id="@+id/letters"
+        android:layout_width="match_parent"
+        android:layout_height="1021dp"
+        android:layout_marginBottom="5dp"
+        android:background="#FFFFFFFF"
+        android:horizontalSpacing="5dp"
+        android:numColumns="16"
+        android:padding="5dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dp" />
 
 
 </LinearLayout>
