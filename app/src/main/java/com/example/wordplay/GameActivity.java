@@ -3,6 +3,9 @@ package com.example.wordplay;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -40,6 +43,16 @@ public class GameActivity extends AppCompatActivity {
     private LetterAdapter ltrAdapt;
     private AlertDialog helpAlert;
     private WordLab wordLab;
+    private SoundPool sounds;
+    private int sWin;
+    private int sLose;
+    private int sSure;
+
+    public GameActivity(Context context){
+        sounds = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
+        sWin = sounds.load(context, R.raw.pobeda,1);
+        sLose = sounds.load(context, R.raw.lose, 1);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +143,6 @@ public class GameActivity extends AppCompatActivity {
         view.setEnabled(false);
         view.setBackgroundResource(R.drawable.letter_down);
         boolean correct = false;
-
         for (int k = 0; k < currWord.length(); k++) {
             if (currWord.charAt(k) == letterChar) {
                 correct = true;
@@ -147,6 +159,7 @@ public class GameActivity extends AppCompatActivity {
 
                 // выводим диалоговое окно
                 AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
+//                sounds.play(sWin, 1.0f, 1.0f, 0, 0, 1.5f);
                 winBuild.setTitle(getString(R.string.congrat));
                 winBuild.setMessage(getString(R.string.win) + currWord);
                 winBuild.setPositiveButton(getString(R.string.playAgain),
@@ -169,6 +182,7 @@ public class GameActivity extends AppCompatActivity {
 
             // Display Alert Dialog
             AlertDialog.Builder loseBuild = new AlertDialog.Builder(this);
+ //           sounds.play(sLose, 1.0f, 1.0f, 0, 0, 1.5f);
             loseBuild.setTitle(getString(R.string.alas));
             loseBuild.setMessage(getString(R.string.lose) + currWord);
             loseBuild.setPositiveButton(getString(R.string.playAgain),
