@@ -28,12 +28,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener, ChangePasswordDialog.Listener{
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener, ChangePasswordDialog.Listener {
 
     public static final String TAG = ProfileActivity.class.getSimpleName();
 
     private TextView mTvName;
-//    private TextView mTvLevel;
+    //    private TextView mTvLevel;
     private Button mBtChangePassword;
     private Button mBtLogout;
 
@@ -59,6 +59,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         Button mapBtn = findViewById(R.id.mapBtn);
         mapBtn.setOnClickListener(this);
+
+        Button musicBtn = findViewById(R.id.musicBtn);
+        musicBtn.setOnClickListener(this);
     }
 
     private void initViews() {
@@ -98,13 +101,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 .subscribe(this::handleResponse, this::handleError));
     }
 
-    private void showDialog(){
+    private void showDialog() {
 
         ChangePasswordDialog fragment = new ChangePasswordDialog();
 
         Bundle bundle = new Bundle();
         bundle.putString(Constants.LOGIN, mLogin);
-        bundle.putString(Constants.TOKEN,mToken);
+        bundle.putString(Constants.TOKEN, mToken);
         fragment.setArguments(bundle);
 
         fragment.show(getFragmentManager(), ChangePasswordDialog.TAG);
@@ -113,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void handleResponse(User user) {
 
         mProgressbar.setVisibility(View.GONE);
-        mTvName.setText(getResources().getString(R.string.user) + ": " + user.getLogin() );
+        mTvName.setText(getResources().getString(R.string.user) + ": " + user.getLogin());
         userAut = user;
 //        mTvLevel.setText(getResources().getString(R.string.level) + ": " +user.getLevel() );
     }
@@ -174,6 +177,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         if (v.getId() == R.id.mapBtn) {
             Intent playIntent = new Intent(this, MapActivity.class);
             this.startActivity(playIntent);
+        }
+        if (v.getId() == R.id.musicBtn) {
+            if (MyService.getTAG().equals("started")) {
+                stopService(new Intent(this, MyService.class));
+            } else
+                startService(new Intent(this, MyService.class));
         }
     }
 }

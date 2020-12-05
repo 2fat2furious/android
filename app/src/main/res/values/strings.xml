@@ -15,6 +15,7 @@
     <string name="lose">You lose!\n\nIt was envisioned:\n\n</string>
     <string name="play">Play</string>
     <string name="map">Map</string>
+    <string name="music">Music</string>
     <string name="login">Login</string>
     <string name="Aut">Login</string>
     <string name="password">Password</string>

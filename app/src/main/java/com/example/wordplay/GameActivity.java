@@ -48,11 +48,11 @@ public class GameActivity extends AppCompatActivity {
     private int sLose;
     private int sSure;
 
-    public GameActivity(Context context){
-        sounds = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
-        sWin = sounds.load(context, R.raw.pobeda,1);
-        sLose = sounds.load(context, R.raw.lose, 1);
-    }
+//    public GameActivity(Context context){
+//        sounds = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
+//        sWin = sounds.load(context, R.raw.pobeda,1);
+//        sLose = sounds.load(context, R.raw.lose, 1);
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

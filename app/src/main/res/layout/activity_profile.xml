@@ -27,6 +27,16 @@
             android:text="@string/map" />
 
         <Button
+            android:id="@+id/musicBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mapBtn"
+            android:layout_marginTop="4dp"
+            android:drawableRight="@android:drawable/ic_lock_silent_mode_off"
+            android:paddingLeft="@dimen/button_padding"
+            android:text="@string/music" />
+
+        <Button
             android:id="@+id/playBtn2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,7 +88,7 @@
             android:id="@+id/btn_change_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mapBtn"
+            android:layout_below="@+id/musicBtn"
             android:layout_marginTop="4dp"
             android:drawableRight="@drawable/ic_lock"
             android:paddingLeft="@dimen/button_padding"

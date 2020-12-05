@@ -16,6 +16,7 @@
     <string name="lose">Вы проиграли!\n\nБыло загадано:\n\n</string>
     <string name="play">Играть</string>
     <string name="map">Карта</string>
+    <string name="music">Музыка</string>
     <string name="login">Логин</string>
     <string name="Aut">Войти</string>
     <string name="password">Пароль</string>
