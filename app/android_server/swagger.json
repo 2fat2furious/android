@@ -1,0 +1,256 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "The application server HANGMAN",
+    "description": "The back end that handles REST requests"
+  },
+  "host": "localhost:80",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the system"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+		"summary": "Create new user in system",
+        "description": "Create new user in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          },
+		  "201": {
+            "description": "User with that login already exist || incorrect data"
+          }
+        }
+      }},
+	  "/users/login": {
+		"post": {
+			"tags": [
+			"Users"
+			],
+		"summary": "Register a new user",
+        "description": "Register a new user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in successfully",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          },
+		  "400": {
+            "description": "Login errors (incorrect input data)"
+          }
+        }
+		}
+	  },
+    "/users/{login}": {
+      "parameters": [
+        {
+          "name": "login",
+          "in": "path",
+          "required": true,
+          "description": "login of user that we want to find",
+          "type": "string"
+        },
+		{
+            "name": "x-access-token",
+            "in": "header",
+            "description": "Token received from the server",
+			"required": true,
+			"type": "string"
+            
+          }
+      ],
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user with given login",
+        "responses": {
+          "200": {
+            "description": "User is found",
+            "schema": {
+              "$ref": "#/definitions/UserAll"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user with given login",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "204": {
+            "description": "User is deleted"
+          },
+		  "400": {
+            "description": "Unexpected error"
+          },
+		  "404": {
+            "description": "User is not found"
+          }
+        }
+      }},
+	  "/users/change/{login}": {
+      "parameters": [
+        {
+          "name": "login",
+          "in": "path",
+          "required": true,
+          "description": "login of user that we want to find",
+          "type": "string"
+        },
+		{
+            "name": "x-access-token",
+            "in": "header",
+            "description": "Token received from the server",
+			"required": true,
+			"type": "string"
+            
+          }
+      ],
+      "put": {
+        "summary": "Update user password",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Password change data",
+            "schema": {
+              "$ref": "#/definitions/NewPass"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User password updated"
+          },
+		  "400": {
+            "description": "Unexpected error"
+          },
+		  "404": {
+            "description": "User is not found || Incorrect data"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "login",
+        "password"
+      ],
+      "properties": {
+        "login": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+	"UserAll": {
+      "required": [
+	    "id",
+        "login",
+        "password",
+		 "level"
+      ],
+      "properties": {
+	  "id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "login": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string"
+        },
+		"level": {
+          "type": "integer"
+        }
+      }
+    },
+     "Token": {
+      "required": [
+        "message",
+        "token"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+     "NewPass": {
+      "required": [
+        "password",
+        "newPassword"
+      ],
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

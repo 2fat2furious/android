@@ -12,10 +12,10 @@ const User = {
    */
   async create(req, res) {
     if (!req.body.login || !req.body.password) {
-      return res.status(400).send({'message': 'Some values are missing'});
+      return res.status(201).send({'message': 'messageSomeValuesMissing'});
     }
     if (!Helper.isValidLogin(req.body.login)) {
-      return res.status(400).send({ 'message': 'Please enter a valid login' });
+      return res.status(201).send({ 'message': 'messageValidLogin' });
     }
     const hashPassword = Helper.hashPassword(req.body.password);
 
@@ -34,10 +34,10 @@ const User = {
     try {
       const { rows } = await db.query(createQuery, values);
       const token = Helper.generateToken(rows[0].id);
-      return res.status(201).send({ 'message': 'User created successfully', token });
+      return res.status(200).send({ 'message': 'messageUserCreated', token });
     } catch(error) {
       if (error.routine === '_bt_check_unique') {
-        return res.status(400).send({ 'message': 'User with that login already exist' })
+        return res.status(201).send({ 'message': 'messageUserAlreadyExist' })
       }
       return res.status(400).send(error);
     }
@@ -45,16 +45,16 @@ const User = {
   
 async chagePass(req, res) {
 	 if (!req.params.login || !req.body.password) {
-      return res.status(400).send({'message': 'Some values are missing'});
+      return res.status(400).send({'message': 'messageSomeValuesMissing'});
     }
 	const text = 'SELECT * FROM users WHERE login = $1';
     try {
       const { rows } = await db.query(text, [req.params.login]);
       if(!rows[0]) {
-        return res.status(404).send({'message': 'user not found'});
+        return res.status(404).send({'message': 'messageUserNotFound'});
       }
        if(!Helper.comparePassword(rows[0].password, req.body.password)) {
-        return res.status(400).send({ 'message': 'The credentials you provided is incorrect' });
+        return res.status(400).send({ 'message': 'messageCredentialsIncorrect' });
       }
 	   const hashPassword = Helper.hashPassword(req.body.newPassword);
 	  const values = [
@@ -63,7 +63,7 @@ async chagePass(req, res) {
     ];
 	  const createQuery = 'UPDATE users SET password = $1 WHERE login = $2';
       const { rowsRes } = await db.query(createQuery, values);
-      return res.status(404).send({'message': 'Success'});
+      return res.status(201).send({'message': 'messageUserСhanged'});
 	} catch(error) {
       return res.status(400).send(error);
     }
@@ -75,7 +75,7 @@ async getUser(req, res) {
     try {
       const { rows } = await db.query(text, [req.params.login]);
       if(!rows[0]) {
-        return res.status(404).send({'message': 'user not found'});
+        return res.status(404).send({'message': 'messageUserNotFound'});
       }
         return res.json(rows[0]);
     } catch(error) {
@@ -90,19 +90,19 @@ async getUser(req, res) {
    */
   async login(req, res) {
     if (!req.body.login || !req.body.password) {
-      return res.status(400).send({'message': 'Some values are missing'});
+      return res.status(400).send({'message': 'messageSomeValuesMissing'});
     }
     if (!Helper.isValidLogin(req.body.login)) {
-      return res.status(400).send({ 'message': 'Please enter a valid login address' });
+      return res.status(400).send({ 'message': 'messageValidLogin' });
     }
     const text = 'SELECT * FROM users WHERE login = $1';
     try {
       const { rows } = await db.query(text, [req.body.login]);
       if (!rows[0]) {
-        return res.status(400).send({'message': 'The credentials you provided is incorrect'});
+        return res.status(400).send({'message': 'messageCredentialsIncorrect'});
       }
       if(!Helper.comparePassword(rows[0].password, req.body.password)) {
-        return res.status(400).send({ 'message': 'The credentials you provided is incorrect' });
+        return res.status(400).send({ 'message': 'messageCredentialsIncorrect' });
       }
       const token = Helper.generateToken(rows[0].id);
 	  const message = req.body.login;
@@ -122,9 +122,9 @@ async getUser(req, res) {
     try {
       const { rows } = await db.query(deleteQuery, [req.body.login]);
       if(!rows[0]) {
-        return res.status(404).send({'message': 'user not found'});
+        return res.status(404).send({'message': 'messageUserNotFound'});
       }
-      return res.status(204).send({ 'message': 'deleted' });
+      return res.status(204).send({ 'message': 'messageUserDeleted' });
     } catch(error) {
       return res.status(400).send(error);
     }
