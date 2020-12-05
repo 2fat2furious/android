@@ -39,11 +39,11 @@
         <activity
             android:name=".GameActivity"
             android:theme="@style/AppTheme.Game"
-            android:parentActivityName=".ProfileActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".ProfileActivity"/>
         <activity
             android:name=".MapActivity"
             android:parentActivityName=".ProfileActivity"
+            android:theme="@style/AppTheme.Game"
             android:screenOrientation="portrait" />
         <service android:enabled="true" android:name=".MyService" />
     </application>
