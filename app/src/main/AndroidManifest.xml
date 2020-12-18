@@ -39,7 +39,8 @@
         <activity
             android:name=".GameActivity"
             android:theme="@style/AppTheme.Game"
-            android:parentActivityName=".ProfileActivity"/>
+            android:parentActivityName=".ProfileActivity"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".MapActivity"
             android:parentActivityName=".ProfileActivity"

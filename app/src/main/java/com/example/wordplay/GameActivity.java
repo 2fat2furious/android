@@ -2,6 +2,7 @@ package com.example.wordplay;
 
 
 import android.app.AlertDialog;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
